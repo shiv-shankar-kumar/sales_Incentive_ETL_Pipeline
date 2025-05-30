@@ -1,7 +1,11 @@
-
+        
 🛒 Sales Performance and Customer Engagement Pipeline
 
 This project showcases a real-world data engineering solution developed for a major offline grocery and kitchen supplies retailer. The goal was to build a robust, scalable data pipeline for sales analytics and customer retention using modern big data tools and cloud services.
+
+ETL FLOW :
+Data Extracted from Data Lake(raw_data) - Data Cleaning with SQL - apply aggregation & modeling using sql & python - final data uploaded the final tables in Azure Data Lake for finance team.
+
 
 🚀 Project Objectives
 - Analyze Point-of-Sale (POS) data to monitor store-level sales performance.
@@ -9,7 +13,7 @@ This project showcases a real-world data engineering solution developed for a ma
 - Identify infrequent buyers and boost retention through targeted incentives.
 - Optimize data processing performance on large datasets (~100 GB/day).
 
-- 🛠️ Tech Stack
+🛠️ Tech Stack
 - Data Engineering: Apache Spark, Python, SQL
 - Orchestration: Apache Airflow, CRON jobs
 - Cloud Services: Azure Data Lake Storage (ADLS), Azure DevOps CI/CD

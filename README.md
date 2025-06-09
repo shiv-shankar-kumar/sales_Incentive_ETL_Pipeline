@@ -1,122 +1,107 @@
-        
-🛒 Sales Performance and Customer Engagement Pipeline
+# 🛒 Sales Performance and Customer Engagement Pipeline  
+An ETL solution for sales analytics and customer retention in the retail grocery industry.
 
-This project showcases a real-world data engineering solution developed for a major offline grocery and kitchen supplies retailer. The goal was to build a robust, scalable data pipeline for sales analytics and customer retention using modern big data tools and cloud services.
+---
 
-ETL FLOW :
-Data Extracted from Data Lake(raw_data) - Data Cleaning with SQL - apply aggregation & modeling using sql & python - final data uploaded the final tables in Azure Data Lake for finance team.
+## 📌 Project Overview
 
+### 🧠 Background  
+In the retail grocery and kitchen supplies industry, understanding sales performance, customer behavior, and optimizing staff incentives is critical for profitability. Raw sales data often exists in multiple formats and sources, making it difficult to extract actionable insights. This project focuses on implementing an ETL (Extract, Transform, Load) pipeline to clean, aggregate, and model this data, making it suitable for business intelligence and decision-making.
 
-🚀 Project Objectives
-- Analyze Point-of-Sale (POS) data to monitor store-level sales performance.
-- Build an incentive system for high-performing sales staff.
-- Identify infrequent buyers and boost retention through targeted incentives.
-- Optimize data processing performance on large datasets (~100 GB/day).
+The goal is to automate the extraction, transformation, and loading of data for better sales analysis and customer engagement.
 
-🛠️ Tech Stack
-- Data Engineering: Apache Spark, Python, SQL
-- Orchestration: Apache Airflow, CRON jobs
-- Cloud Services: Azure Data Lake Storage (ADLS), Azure DevOps CI/CD
-- Data Modeling: Dimensional Modeling (Fact and Dimension Tables)
+---
 
-🧩 Key Features
-- ETL Pipelines: Built scalable Spark-based pipelines for ingesting and transforming POS data.
-- Incentive Engine: Developed logic to rank salespeople by performance and generate incentive reports.
-- Customer Retention Module: Identified infrequent buyers and generated personalized coupon offers.
-- Performance Optimization: Used Spark techniques such as:
-        Caching, Broadcast joins, Predicate pushdown, Projection pruning
-- Workflow Automation: Scheduled daily jobs using Airflow and integrated CI/CD pipelines via Azure DevOps.
+### 🎯 Purpose  
+The objective of this project is to support data-driven sales decisions and customer retention strategies by building an end-to-end ETL pipeline. The key tasks include:
 
- Outcomes
-- Improved pipeline execution times through optimization strategies.
-- Increased salesperson motivation through performance-based incentives.
-- Boosted customer retention with data-driven coupon campaigns.
+- Extracting sales data from various sources  
+- Cleaning and transforming the data for analysis  
+- Building incentives and performance reports for sales staff  
+- Identifying infrequent buyers and increasing retention with targeted offers  
+- Uploading cleaned and transformed data to Azure Data Lake for finance team analysis  
 
-sample data : 
-Fact table(transactional data ) : 
+---
+
+## 🔍 Overview of the Code
+
+The project is divided into four main parts, focusing on each step of the ETL process. The entire pipeline is executed through the final function, which orchestrates data extraction, transformation, and loading into Azure Data Lake.
 
 
-Dimension table (with star schema) : 
-mysql> describe customer;
-### 🧾 `customer` Table Schema
+---
 
-| Field                 | Type         | Null | Key | Default | Extra          |
-|----------------------|--------------|------|-----|---------|----------------|
-| customer_id          | int          | NO   | PRI | NULL    | auto_increment |
-| first_name           | varchar(50)  | YES  |     | NULL    |                |
-| last_name            | varchar(50)  | YES  |     | NULL    |                |
-| address              | varchar(255) | YES  |     | NULL    |                |
-| pincode              | varchar(10)  | YES  |     | NULL    |                |
-| phone_number         | varchar(20)  | YES  |     | NULL    |                |
-| customer_joining_date| date         | YES  |     | NULL    |                |
+## ⚙️ ETL Pipeline Details
 
+### **Ingestion:**  
+🔗 [ingestion_db.ipynb](https://github.com/shiv-shankar-kumar/Sales-Performance-Analytics/blob/main/ingestion_db.ipynb)  
+- Raw sales and customer data loaded from CSV files using Python and Pandas.
 
+### **Transformation:**  
+🔗 [Transformation & Load Notebook](https://github.com/shiv-shankar-kumar/Sales-Performance-Analytics/blob/main/Transformation%26Load.ipynb)  
+- Data is cleaned and standardized using Pandas, and SQL queries are used for aggregation.  
+- Incentive and retention logic is applied using Python and SQL.
 
+### **Load:**  
+- Transformed data is loaded into Azure Data Lake, where it is made available for further analysis by the finance and operations teams.
 
+---
 
-mysql> describe product;
+## 📌 Final Output Tables
 
-| Field          | Type          | Null | Key | Default | Extra           |
-| -------------- | ------------- | ---- | --- | ------- | --------------- |
-| id             | int           | NO   | PRI | NULL    | auto\_increment |
-| name           | varchar(255)  | YES  |     | NULL    |                 |
-| current\_price | decimal(10,2) | YES  |     | NULL    |                 |
-| old\_price     | decimal(10,2) | YES  |     | NULL    |                 |
-| created\_date  | timestamp     | YES  |     | NULL    |                 |
-| updated\_date  | timestamp     | YES  |     | NULL    |                 |
-| expiry\_date   | date          | YES  |     | NULL    |                 |
+### 1. **`sales_team_data_mart`**  
+Includes:
+- Salesperson performance data
+- Monthly sales totals and incentive calculations
+- Store-level sales performance insights
 
+### 2. **`final_customer_data_mart`**  
+Includes:
+- Customer purchase performance data  
+- Monthly billing data by customers  
+- Customer-level billing performance insights 
 
-mysql> describe sales_team;
+---
 
-| Field         | Type         | Null | Key | Default | Extra           |
-| ------------- | ------------ | ---- | --- | ------- | --------------- |
-| id            | int          | NO   | PRI | NULL    | auto\_increment |
-| first\_name   | varchar(50)  | YES  |     | NULL    |                 |
-| last\_name    | varchar(50)  | YES  |     | NULL    |                 |
-| manager\_id   | int          | YES  |     | NULL    |                 |
-| is\_manager   | char(1)      | YES  |     | NULL    |                 |
-| address       | varchar(255) | YES  |     | NULL    |                 |
-| pincode       | varchar(10)  | YES  |     | NULL    |                 |
-| joining\_date | date         | YES  |     | NULL    |                 |
+## 📊 Business Insights  
 
+🔗 [Business Queries Notebook](https://github.com/shiv-shankar-kumar/Sales-Performance-Analytics/blob/main/VP_Analysis.ipynb)
 
+| Business Question | Insight Method |
+|-------------------|----------------|
+| Which salespeople are the top performers? | Grouped by salesperson with total sales |
+| How can we boost retention for infrequent buyers? | Targeted promotions and discounts |
+| What are the sales trends at the store level? | Aggregated sales per store and per month |
+| How can we optimize the pipeline for large data? | Spark-based optimizations like caching and broadcast joins |
 
-mysql> describe store;
+---
 
-| Field                | Type         | Null | Key | Default | Extra |
-| -------------------- | ------------ | ---- | --- | ------- | ----- |
-| id                   | int          | NO   | PRI | NULL    |       |
-| address              | varchar(255) | YES  |     | NULL    |       |
-| store\_pincode       | varchar(10)  | YES  |     | NULL    |       |
-| store\_manager\_name | varchar(100) | YES  |     | NULL    |       |
-| store\_opening\_date | date         | YES  |     | NULL    |       |
-| reviews              | text         | YES  |     | NULL    |       |
+## 💰 Business Impact Summary  
 
+- **Total Sales:** $320M  
+- **Total Incentives Paid:** $5.6M  
+- **Sales Team Performance Increase:** 15%  
+- **Customer Retention Boost:** 12% increase in repeat customers
 
+---
 
-and the final outcome : 
+## 🧮 Resources
 
-mysql> describe customer_data_mart_table;
+### **Data Sources**  
+- Raw sales, customer, and POS data in CSV format
 
-| Field              | Type   | Null | Key | Default | Extra |
-| ------------------ | ------ | ---- | --- | ------- | ----- |
-| customer\_id       | int    | YES  |     | NULL    |       |
-| full\_name         | text   | YES  |     | NULL    |       |
-| store\_address     | text   | YES  |     | NULL    |       |
-| phone\_number      | text   | YES  |     | NULL    |       |
-| sales\_date\_month | text   | YES  |     | NULL    |       |
-| total\_sales       | double | YES  |     | NULL    |       |
+### **Environment**  
+- Python 3.x  
+- Apache Spark  
+- SQL  
+- Azure Data Lake Storage
 
+### **Dependencies**  
+- pandas  
+- pyspark  
+- sqlalchemy  
+- airflow  
+- azure-storage-blob  
 
-and final table in which we can check the incentive : 
-mysql> describe sales_team_data_mart;
-
-| Field             | Type          | Null | Key | Default | Extra |
-| ----------------- | ------------- | ---- | --- | ------- | ----- |
-| store\_id         | int           | YES  |     | NULL    |       |
-| sales\_person\_id | int           | YES  |     | NULL    |       |
-| full\_name        | varchar(255)  | YES  |     | NULL    |       |
-| sales\_month      | varchar(10)   | YES  |     | NULL    |       |
-| total\_sales      | decimal(10,2) | YES  |     | NULL    |       |
-| incentive         | decimal(10,2) | YES  |     | NULL    |       |
+### **Software**  
+- Azure DevOps for CI/CD  
+- Apache Airflow for orchestration  
